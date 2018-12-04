@@ -1,0 +1,304 @@
+
+  .white:active {
+    background-color: white;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+  .black:active {
+    background-color:black;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+
+  #cbutton{
+    position:absolute;
+    top:20%;
+    left: 15%;
+    width: 4%;
+    height:42%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+    color: black;
+    background-color:white;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+
+  }
+
+  #dbbutton{
+    position: absolute;
+    /* display: inline-block; */
+    top:20%;
+    left:20%;
+    width: 4%;
+    height: 28%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+    
+}
+
+#dbutton{
+
+
+    position:absolute;
+    top:20%;
+    left:25%;
+    width: 4%;
+    height:42%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    background-color:white;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+    
+}
+
+#ebbutton{
+    position: absolute;
+    /* display: inline-block; */
+    top:20%;
+    left:30%;
+    width: 4%;
+    height: 28%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    
+}
+
+#ebutton{
+    position:absolute;
+    top:20%;
+    left:35%;
+    width: 4%;
+    height:42%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    background-color:white;
+    /* border: none; */
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+    
+}
+
+#fbutton{
+    position:absolute;
+    top:20%;
+    left:40%;
+    width: 4%;
+    height:42%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    background-color:white;
+    /* border: none; */
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+    
+}
+
+#gbbutton{
+    position: absolute;
+    /* display: inline-block; */
+    top:20%;
+    left:45%;
+    width: 4%;
+    height: 28%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+    
+}
+#gbutton{
+    position:absolute;
+    top:20%;
+    left:50%;
+    width: 4%;
+    height:42%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    background-color:white;
+    /* border: none; */
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+    
+}
+#abbutton{
+    position: absolute;
+    /* display: inline-block; */
+    top:20%;
+    left:55%;
+    width: 4%;
+    height: 28%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+    
+}
+#abutton{
+    position:absolute;
+    top:20%;
+    left:60%;
+    width: 4%;
+    height:42%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    background-color:white;
+    /* border: none; */
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+    
+}
+#bbbutton{
+    position: absolute;
+    /* display: inline-block; */
+    top:20%;
+    left:65%;
+    width: 4%;
+    height: 28%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+    
+}
+#bbutton{
+    position:absolute;
+    top:20%;
+    left:70%;
+    width: 4%;
+    height:42%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    background-color:white;
+    /* border: none; */
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+    
+}
+#hcbutton{
+    position:absolute;
+    top:20%;
+    left:75%;
+    width: 4%;
+    height:42%;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: black;
+    background-color:white;
+    /* border: none; */
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+
+    
+}
+
+#recBanner{
+position:fixed;
+top:77%;
+left:45%;
+color: red;
+text-align: center
+
+}
+
+
+
+#menu{
+    position: relative;
+   left: 35%;
+   top:65%;
+
+}
+
+#instructions{
+
+position: relative;
+
+top: 70%
+
+}
+
+#title{
+
+    position: relative;
+    left: 40%;
+    top:5%;
+ 
+}
