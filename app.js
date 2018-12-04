@@ -37,24 +37,25 @@ db.collection('practice').deleteMany({"title":id})
 
 app.post('/data', function (req, res) {
 data = req.body.notes
- 
+db.collection('practice').insertOne(req.body);
 });
+
 app.post('/name', function (req, res) {
    id = req.body.name 
+   console.log(id)
 })
 
 
 app.get('/respo', function (req, res) {
-
   db.collection('practice').find({"title":id}).toArray(function (err, result){
  if (err){
 console.log(err)
-
+ }else{
+  console.log(result)
+  res.send(result)
  }
-  
-    res.send(result)
         })
-        
+
       })
 
 
@@ -68,6 +69,8 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 });
+
+
 
 http.listen(5000, function(){
   console.log('listening on *:5000');
