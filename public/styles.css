@@ -14,10 +14,10 @@
 
   #cbutton{
     position:absolute;
-    top:20%;
+    top:75%;
     left: 15%;
-    width: 4%;
-    height:42%;
+    width: 3%;
+    height:25%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -33,10 +33,10 @@
   #dbbutton{
     position: absolute;
     /* display: inline-block; */
-    top:20%;
-    left:20%;
-    width: 4%;
-    height: 28%;
+    top:75%;
+    left:17.9%;
+    width: 2%;
+    height: 16%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -55,10 +55,10 @@
 
 
     position:absolute;
-    top:20%;
+    top:75%;
     left:25%;
-    width: 4%;
-    height:42%;
+    width: 3%;
+    height:25%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -75,10 +75,10 @@
 #ebbutton{
     position: absolute;
     /* display: inline-block; */
-    top:20%;
+    top:75%;
     left:30%;
-    width: 4%;
-    height: 28%;
+    width: 2%;
+    height: 16%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -94,10 +94,10 @@
 
 #ebutton{
     position:absolute;
-    top:20%;
+    top:75%;
     left:35%;
-    width: 4%;
-    height:42%;
+    width: 3%;
+    height:25%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -114,10 +114,10 @@
 
 #fbutton{
     position:absolute;
-    top:20%;
+    top:75%;
     left:40%;
-    width: 4%;
-    height:42%;
+    width: 3%;
+    height:25%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -135,10 +135,10 @@
 #gbbutton{
     position: absolute;
     /* display: inline-block; */
-    top:20%;
+    top:75%;
     left:45%;
-    width: 4%;
-    height: 28%;
+    width: 2%;
+    height: 16%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -154,10 +154,10 @@
 }
 #gbutton{
     position:absolute;
-    top:20%;
-    left:50%;
-    width: 4%;
-    height:42%;
+    top:75%;
+    left:46.5%;
+    width: 3%;
+    height:25%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -174,10 +174,10 @@
 #abbutton{
     position: absolute;
     /* display: inline-block; */
-    top:20%;
-    left:55%;
-    width: 4%;
-    height: 28%;
+    top:75%;
+    left:49%;
+    width: 2%;
+    height: 16%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -193,10 +193,10 @@
 }
 #abutton{
     position:absolute;
-    top:20%;
-    left:60%;
-    width: 4%;
-    height:42%;
+    top:75%;
+    left:50.5%;
+    width: 3%;
+    height:25%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -213,10 +213,10 @@
 #bbbutton{
     position: absolute;
     /* display: inline-block; */
-    top:20%;
-    left:65%;
-    width: 4%;
-    height: 28%;
+    top:75%;
+    left:53%;
+    width: 2%;
+    height: 16%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -232,10 +232,10 @@
 }
 #bbutton{
     position:absolute;
-    top:20%;
+    top:75%;
     left:70%;
-    width: 4%;
-    height:42%;
+    width: 3%;
+    height:25%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
@@ -251,10 +251,10 @@
 }
 #hcbutton{
     position:absolute;
-    top:20%;
+    top:75%;
     left:75%;
-    width: 4%;
-    height:42%;
+    width: 3%;
+    height:25%;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
