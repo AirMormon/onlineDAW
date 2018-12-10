@@ -42,7 +42,7 @@ var submit = document.getElementById('subButton')
 var delBut = document.getElementById('delButton')
 var select = document.getElementById('select')
 var instrument = 'piano'
-
+var canvas = document.getElementById('canvas')
 var seconds = 0
 var newSeconds = 0;
 var stream = MediaRecorder.stream
@@ -116,6 +116,7 @@ function save() {
 
 function playPiano(note, frequency, key, drum) {
 
+
     if (instrument == "piano") {
         var name = document.getElementById('input').value;
         var held = 0
@@ -126,16 +127,12 @@ function playPiano(note, frequency, key, drum) {
         var oscillator;
 
         note.addEventListener('mousedown', function () {
+
+
             if (instrument == "piano") {
-                PutDownTime = seconds;
-                //console.log(PutDownTime)
-                oscillator = context.createOscillator();
-                oscillator.connect(gainNode);
-                gainNode.gain.value = 1;
-                oscillator.type = "triangle";
-                oscillator.frequency.value = frequency
-                gainNode.connect(context.destination);
-                oscillator.start(0)
+                var synth = new Tone.Synth().toMaster();
+                synth.triggerAttackRelease(frequency, "8n");
+
             }
             if (instrument == "drums") {
                 PutDownTime = seconds;
@@ -150,11 +147,8 @@ function playPiano(note, frequency, key, drum) {
         });
         note.addEventListener('mouseup', function () {
             PickUpTime = seconds;
-            // console.log(held)
-            //gainNode.gain.exponentialRampToValueAtTime(0.000000001, context.currentTime + 4)
-            if (instrument == "piano") {
-                oscillator.stop();
-            }
+            PutDownTime=seconds;
+           
             if (recording == 1) {
                 if (instrument == "piano") {
                     notes.push({
@@ -185,7 +179,7 @@ function playPiano(note, frequency, key, drum) {
 
 
 function recSong() {
-    
+
     var name = document.getElementById('input').value
     if (name == "") {
 
@@ -215,7 +209,7 @@ function recSong() {
         }
 
         function display() {
-            if ((document.getElementById("recBanner").innerHTML += '.').length == 13){
+            if ((document.getElementById("recBanner").innerHTML += '.').length == 13) {
                 document.getElementById("recBanner").innerHTML = 'Recording';
             }
             //clearInterval( int ); // at some point, clear the setInterval
@@ -293,35 +287,31 @@ function playSong() {
             songNotes.forEach(function (val) {
                 var note = val.notes;
                 note.forEach(function (val) {
-                    if(val.freq!=""){
-                    var context = new AudioContext;
+                    if (val.freq != "") {
+                        var pianoTime = val.timeon*1000
+                        setTimeout(playPiano,pianoTime)
 
-                    var oscillator;
-                    var gainNode = context.createGain();
-                    gainNode.gain.value = 1;
+                        function playPiano(){
+                            console.log(pianoTime)
+                            var synth = new Tone.Synth().toMaster();
+                            synth.triggerAttackRelease(val.freq, "8n");
+                        }
 
-                    var timeon = val.timeon;
-                    var freq = val.freq
-                    var off = val.timeoff
-
-                    oscillator = context.createOscillator();
-                    oscillator.connect(gainNode);
-                    oscillator.type = "triangle";
-                    oscillator.frequency.value = freq
-                    gainNode.connect(context.destination);
-                    oscillator.start(timeon)
-                    oscillator.stop(off)  
+                       
                     }
 
                     var drumTime = val.timeon * 1000
                     setTimeout(playStuff, drumTime)
+
                     function playStuff() {
-                        if(val.drum != ""){
-                        audioElement = document.getElementById(val.drum + "Audio")
-                        audioElement.play();
-                        }else{}
+                        if (val.drum != "") {
+                            audioElement = document.getElementById(val.drum + "Audio")
+                            audioElement.play();
+                        } else {}
 
                     }
+
+
 
                 })
 
@@ -334,9 +324,6 @@ function playSong() {
         request.send();
     }
 }
-
-
-
 
 
 
