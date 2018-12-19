@@ -1,4 +1,3 @@
-
 var socket = io.connect('http://localhost:5000');
 
 var recording = -1;
@@ -26,11 +25,19 @@ var submit = document.getElementById('subButton')
 var delBut = document.getElementById('delButton')
 var select = document.getElementById('select')
 var instrument = 'piano'
-var canvas = document.getElementById('canvas')
+
 var seconds = 0
 var newSeconds = 0;
 var stream = MediaRecorder.stream
 var songNotes
+
+var c = document.getElementById("canvas");
+var ctx = c.getContext("2d");
+ctx.beginPath();
+ctx.rect(20, 20, 150, 100);
+ctx.fillStyle = "grey";
+ctx.fill();
+
 
 select.onchange = function () {
     instrument = this.value;
@@ -59,6 +66,10 @@ var input = document.getElementById('input')
 function noscroll() {
     window.scrollTo(0, 0);
 }
+
+
+
+
 
 // add listener to disable scroll
 window.addEventListener('scroll', noscroll);
@@ -131,8 +142,8 @@ function playPiano(note, frequency, key, drum) {
         });
         note.addEventListener('mouseup', function () {
             PickUpTime = seconds;
-            PutDownTime=seconds;
-           
+            PutDownTime = seconds;
+
             if (recording == 1) {
                 if (instrument == "piano") {
                     notes.push({
@@ -272,16 +283,16 @@ function playSong() {
                 var note = val.notes;
                 note.forEach(function (val) {
                     if (val.freq != "") {
-                        var pianoTime = val.timeon*1000
-                        setTimeout(playPiano,pianoTime)
+                        var pianoTime = val.timeon * 1000
+                        setTimeout(playPiano, pianoTime)
 
-                        function playPiano(){
+                        function playPiano() {
                             console.log(pianoTime)
                             var synth = new Tone.Synth().toMaster();
                             synth.triggerAttackRelease(val.freq, "8n");
                         }
 
-                       
+
                     }
 
                     var drumTime = val.timeon * 1000
@@ -308,9 +319,6 @@ function playSong() {
         request.send();
     }
 }
-
-
-
 socket.on('chat message', function (msg) {
     console.log(msg)
 })
