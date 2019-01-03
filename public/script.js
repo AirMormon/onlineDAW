@@ -23,18 +23,23 @@ var sto = document.getElementById('stopButton')
 var banner = document.getElementById('recBanner')
 var submit = document.getElementById('subButton')
 var delBut = document.getElementById('delButton')
+var met = document.getElementById('met')
 var select = document.getElementById('select')
+var tempo = document.getElementById('tempo')
 var instrument = 'piano'
-
+metr = -1;
+var x = 0;
+var y 
 var seconds = 0
 var newSeconds = 0;
 var stream = MediaRecorder.stream
 var songNotes
+var color;
 
 var c = document.getElementById("canvas");
 var ctx = c.getContext("2d");
 ctx.beginPath();
-ctx.rect(20, 20, 150, 100);
+ctx.rect(0, 40, 500, 150);
 ctx.fillStyle = "grey";
 ctx.fill();
 
@@ -61,18 +66,19 @@ pl.addEventListener('click', playSong);
 r.addEventListener("click", recSong);
 submit.addEventListener("click", subSong);
 delBut.addEventListener('click', delNotes)
+met.addEventListener('click', metronome)
 var input = document.getElementById('input')
 
-function noscroll() {
-    window.scrollTo(0, 0);
-}
+// function noscroll() {
+//     window.scrollTo(0, 0);
+// }
 
 
 
 
 
 // add listener to disable scroll
-window.addEventListener('scroll', noscroll);
+//window.addEventListener('scroll', noscroll);
 
 input.onblur = function () {
     var name = document.getElementById('input').value;
@@ -127,15 +133,27 @@ function playPiano(note, frequency, key, drum) {
             if (instrument == "piano") {
                 var synth = new Tone.Synth().toMaster();
                 synth.triggerAttackRelease(frequency, "8n");
-
+                y = 70;
+                color = "green"
             }
             if (instrument == "drums") {
                 PutDownTime = seconds;
-
+                y = 120;
 
                 audioElement = document.getElementById(drum + "Audio")
                 audioElement.play();
+                color = "blue"
+            }
 
+            if(recording ==1){
+
+                x = seconds*5
+                var c = document.getElementById("canvas");
+                var ctx = c.getContext("2d");
+                ctx.beginPath();
+                ctx.rect(x, y, 2, 10);
+                ctx.fillStyle = color;
+                ctx.fill();
             }
 
 
@@ -172,6 +190,31 @@ function playPiano(note, frequency, key, drum) {
     }
 }
 
+
+
+
+function metronome() {
+audioElement = document.getElementById("metronome")
+temp = tempo.value;
+
+metr = -metr
+
+console.log(metr)
+if(metr == 1){    
+ss = setInterval(playMet,temp)
+}
+
+if(metr == -1){
+clearInterval(ss)
+//audioElement.stop();
+}
+
+
+    function playMet(){
+    
+    audioElement.play();
+    }
+}
 
 function recSong() {
 
@@ -273,6 +316,7 @@ function playSong() {
         alert('Please Enter a song title')
 
     } else {
+        socket.emit('oo')
         var note
         var hold
         var request = new XMLHttpRequest();
@@ -292,7 +336,12 @@ function playSong() {
                             synth.triggerAttackRelease(val.freq, "8n");
                         }
 
-
+                        var c = document.getElementById("canvas");
+                        var ctx = c.getContext("2d");
+                        ctx.beginPath();
+                        ctx.rect(val.timeon*5, y, 2, 10);
+                        ctx.fillStyle = "green";
+                        ctx.fill();
                     }
 
                     var drumTime = val.timeon * 1000
@@ -319,6 +368,7 @@ function playSong() {
         request.send();
     }
 }
+
 socket.on('chat message', function (msg) {
     console.log(msg)
 })
