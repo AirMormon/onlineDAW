@@ -6,8 +6,7 @@ var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 
 var port = process.env.PORT || 5000;
-//const mongoURL = 'mongodb://localhost:27017/mytestdb'
-const mongoURL = 'mongodb://<username>:<password1>@ds151354.mlab.com:51354/heroku_2bg98j1f'
+const mongoURL = 'mongodb://localhost:27017/mytestdb'
 const mongoClient = require('mongodb').MongoClient;
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({
