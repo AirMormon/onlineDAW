@@ -195,12 +195,13 @@ function playPiano(note, frequency, key, drum) {
 
 function metronome() {
 audioElement = document.getElementById("metronome")
-temp = tempo.value;
+temp = 60000/tempo.value;
 
 metr = -metr
 
 console.log(metr)
-if(metr == 1){    
+
+if(metr == 1){
 ss = setInterval(playMet,temp)
 }
 
@@ -211,7 +212,6 @@ clearInterval(ss)
 
 
     function playMet(){
-    
     audioElement.play();
     }
 }
@@ -329,19 +329,22 @@ function playSong() {
                     if (val.freq != "") {
                         var pianoTime = val.timeon * 1000
                         setTimeout(playPiano, pianoTime)
-
+                        var time = val.timeon*5
                         function playPiano() {
-                            console.log(pianoTime)
+                            //console.log(pianoTime)
                             var synth = new Tone.Synth().toMaster();
                             synth.triggerAttackRelease(val.freq, "8n");
-                        }
-
-                        var c = document.getElementById("canvas");
+                            var c = document.getElementById("canvas");
                         var ctx = c.getContext("2d");
                         ctx.beginPath();
-                        ctx.rect(val.timeon*5, y, 2, 10);
+                        ctx.rect(time, 70, 2, 10);
                         ctx.fillStyle = "green";
                         ctx.fill();
+                        //console.log("asdfasdf")
+                        //console.log(val.timeon)
+                        }
+
+                        
                     }
 
                     var drumTime = val.timeon * 1000
@@ -351,6 +354,14 @@ function playSong() {
                         if (val.drum != "") {
                             audioElement = document.getElementById(val.drum + "Audio")
                             audioElement.play();
+                            var c = document.getElementById("canvas");
+                        var ctx = c.getContext("2d");
+                        ctx.beginPath();
+                        ctx.rect(val.timeon*5, 120, 2, 10);
+                        ctx.fillStyle = "red";
+                        ctx.fill();
+                        //console.log("asdfasdf")
+                        console.log(val.timeon)
                         } else {}
 
                     }
@@ -369,6 +380,6 @@ function playSong() {
     }
 }
 
-socket.on('chat message', function (msg) {
-    console.log(msg)
-})
+// socket.on('chat message', function (msg) {
+//     console.log(msg)
+// })
