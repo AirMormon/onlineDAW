@@ -133,7 +133,7 @@ function playPiano(note, frequency, key, drum) {
             if (instrument == "piano") {
                 var synth = new Tone.Synth().toMaster();
                 synth.triggerAttackRelease(frequency, "8n");
-                y = 70;
+                y = 107 - ((frequency-261)/4);
                 color = "green"
             }
             if (instrument == "drums") {
@@ -337,7 +337,7 @@ function playSong() {
                             var c = document.getElementById("canvas");
                         var ctx = c.getContext("2d");
                         ctx.beginPath();
-                        ctx.rect(time, 70, 2, 10);
+                        ctx.rect(time, 107-((val.freq-261)/4), 2, 10);
                         ctx.fillStyle = "green";
                         ctx.fill();
                         //console.log("asdfasdf")
