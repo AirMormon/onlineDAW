@@ -6,7 +6,9 @@ var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 
 var port = process.env.PORT || 5000;
-const mongoURL = 'mongodb://localhost:27017/mytestdb'
+//const mongoURL = 'mongodb://localhost:27017/mytestdb'
+const mongoURL = 'mongodb://username:password1@ds151354.mlab.com:51354/onlinedaw'
+//const mongoURL = process.env.MONGOLAB_URI;
 const mongoClient = require('mongodb').MongoClient;
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({
@@ -20,8 +22,9 @@ mongoClient.connect(mongoURL, {
 }, function (err, client) {
   assert.equal(null, err);
   console.log("connected")
-  db = client.db("mytestdb")
+  db = client.db("onlinedaw")
 })
+
 app.use(express.static(__dirname + '/public'));
 
 
@@ -31,32 +34,36 @@ app.get('/', function (req, res) {
 
 
 app.post('/del', function (req, res) {
-db.collection('practice').deleteMany({"title":id})
+  db.collection('practice').deleteMany({
+    "title": id
+  })
 })
 
 
 app.post('/data', function (req, res) {
-data = req.body.notes
-db.collection('practice').insertOne(req.body);
+  data = req.body.notes
+  db.collection('practice').insertOne(req.body);
 });
 
 app.post('/name', function (req, res) {
-   id = req.body.name 
-   console.log(id)
+  id = req.body.name
+  console.log(id)
 })
 
 
 app.get('/respo', function (req, res) {
-  db.collection('practice').find({"title":id}).toArray(function (err, result){
- if (err){
-console.log(err)
- }else{
-  console.log(result)
-  res.send(result)
- }
-        })
+  db.collection('practice').find({
+    "title": id
+  }).toArray(function (err, result) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(result)
+      res.send(result)
+    }
+  })
 
-      })
+})
 
 
 // io.on('connection', function(socket){
@@ -75,6 +82,6 @@ console.log(err)
 
 
 
-http.listen(5000, function(){
+http.listen(5000, function () {
   console.log('listening on *:5000');
 });

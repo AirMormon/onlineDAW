@@ -50,7 +50,7 @@ select.onchange = function () {
 }
 
 c4.addEventListener('click', playPiano(c4, 261.63, "c4", "kick"))
-db4.addEventListener('click', playPiano(db4, 277.18, "db4"))
+db4.addEventListener('click', playPiano(db4, 277.18, "db4","clap"))
 d4.addEventListener('cick', playPiano(d4, 293.66, "d4", "snare"))
 eb4.addEventListener('click', playPiano(eb4, 311.13, "eb4"))
 e4.addEventListener('click', playPiano(e4, 329.63, "e4", "hat"))
@@ -145,6 +145,18 @@ function playPiano(note, frequency, key, drum) {
                 color = "blue"
             }
 
+            if(instrument =="real"){
+                PutDownTime = seconds;
+                y = 140;
+                
+                audioElement = document.getElementById(key+"Audio")
+                audioElement.currentTime = 0;
+                audioElement.volume = 1;
+                console.log(audioElement)
+                audioElement.play();
+                color = "red"
+            }
+
             if(recording ==1){
 
                 x = seconds*5
@@ -217,13 +229,13 @@ clearInterval(ss)
 }
 
 function recSong() {
-
+    metronome();
     var name = document.getElementById('input').value
     if (name == "") {
 
         alert('Please Enter a Song Title')
     } else {
-
+        
         seconds = 0;
         recording = -recording
         var start
@@ -316,7 +328,7 @@ function playSong() {
         alert('Please Enter a song title')
 
     } else {
-        socket.emit('oo')
+        metronome();
         var note
         var hold
         var request = new XMLHttpRequest();
