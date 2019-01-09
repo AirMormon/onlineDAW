@@ -117,8 +117,6 @@ function save() {
 
 function playPiano(note, frequency, key, drum) {
 
-
-    if (instrument == "piano") {
         var name = document.getElementById('input').value;
         var held = 0
         var PutDownTime
@@ -149,8 +147,8 @@ function playPiano(note, frequency, key, drum) {
                 PutDownTime = seconds;
                 y = 140;
                 
-                audioElement = document.getElementById(key+"Audio")
-                audioElement.currentTime = 0;
+                audioElement = document.getElementById(key)
+                audioElement.currentTime = .65;
                 audioElement.volume = 1;
                 console.log(audioElement)
                 audioElement.play();
@@ -199,7 +197,7 @@ function playPiano(note, frequency, key, drum) {
 
         })
 
-    }
+    
 }
 
 
