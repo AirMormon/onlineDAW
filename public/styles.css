@@ -89,18 +89,25 @@ select {
     /* border: 1px solid red; */
 }
 
-#p {
+#s {
     position: relative;
     left: 15%;
-    top: 18%;
-    color: black;
+    top: 13%;
+    color: green;
 }
 
 #d {
     position: relative;
     left: 15%;
-    top: 24%;
-    color: black;
+    top: 18%;
+    color: blue;
+}
+
+#p {
+    position: relative;
+    left: 15%;
+    top: 23%;
+    color: red;
 }
 
 

@@ -29,7 +29,7 @@ var tempo = document.getElementById('tempo')
 var instrument = 'piano'
 metr = -1;
 var x = 0;
-var y 
+var y
 var seconds = 0
 var newSeconds = 0;
 var stream = MediaRecorder.stream
@@ -50,7 +50,7 @@ select.onchange = function () {
 }
 
 c4.addEventListener('click', playPiano(c4, 261.63, "c4", "kick"))
-db4.addEventListener('click', playPiano(db4, 277.18, "db4","clap"))
+db4.addEventListener('click', playPiano(db4, 277.18, "db4", "clap"))
 d4.addEventListener('cick', playPiano(d4, 293.66, "d4", "snare"))
 eb4.addEventListener('click', playPiano(eb4, 311.13, "eb4"))
 e4.addEventListener('click', playPiano(e4, 329.63, "e4", "hat"))
@@ -69,16 +69,7 @@ delBut.addEventListener('click', delNotes)
 met.addEventListener('click', metronome)
 var input = document.getElementById('input')
 
-// function noscroll() {
-//     window.scrollTo(0, 0);
-// }
 
-
-
-
-
-// add listener to disable scroll
-//window.addEventListener('scroll', noscroll);
 
 input.onblur = function () {
     var name = document.getElementById('input').value;
@@ -90,7 +81,6 @@ input.onblur = function () {
     request.open("POST", "/name", true)
     request.setRequestHeader('Content-Type', 'application/json');
     request.send(arrStr);
-    //console.log(name)
 }
 
 context = new AudioContext;
@@ -108,132 +98,126 @@ function save() {
 
 }
 
-
-// const audioCtx = new AudioContext();
-
-// audioElement = document.getElementById('audio')
-// const track = audioCtx.createMediaElementSource(audioElement);
-// track.connect(audioCtx.destination);
-
 function playPiano(note, frequency, key, drum) {
 
-        var name = document.getElementById('input').value;
-        var held = 0
-        var PutDownTime
-        var PickUpTime
-        var context = new AudioContext;
-        var gainNode = context.createGain();
-        var oscillator;
+    var name = document.getElementById('input').value;
+    var held = 0
+    var PutDownTime
+    var PickUpTime
+    var context = new AudioContext;
+    var gainNode = context.createGain();
+    var oscillator;
 
-        note.addEventListener('mousedown', function () {
-
-
-            if (instrument == "piano") {
-                var synth = new Tone.Synth().toMaster();
-                synth.triggerAttackRelease(frequency, "8n");
-                y = 107 - ((frequency-261)/4);
-                color = "green"
-            }
-            if (instrument == "drums") {
-                PutDownTime = seconds;
-                y = 120;
-
-                audioElement = document.getElementById(drum + "Audio")
-                audioElement.play();
-                color = "blue"
-            }
-
-            if(instrument =="real"){
-                PutDownTime = seconds;
-                y = 140;
-                
-                audioElement = document.getElementById(key)
-                audioElement.currentTime = .65;
-                audioElement.volume = 1;
-                console.log(audioElement)
-                audioElement.play();
-                color = "red"
-            }
-
-            if(recording ==1){
-
-                x = seconds*5
-                var c = document.getElementById("canvas");
-                var ctx = c.getContext("2d");
-                ctx.beginPath();
-                ctx.rect(x, y, 2, 10);
-                ctx.fillStyle = color;
-                ctx.fill();
-            }
+    note.addEventListener('mousedown', function () {
 
 
-        });
-        note.addEventListener('mouseup', function () {
-            PickUpTime = seconds;
+        if (instrument == "piano") {
+            var synth = new Tone.Synth().toMaster();
+            synth.triggerAttackRelease(frequency, "8n");
+            y = 107 - ((frequency - 261) / 4);
+            color = "green"
+        }
+        if (instrument == "drums") {
+            PutDownTime = seconds;
+            y = 120;
+
+            audioElement = document.getElementById(drum + "Audio")
+            audioElement.play();
+            color = "blue"
+        }
+
+        if (instrument == "real") {
             PutDownTime = seconds;
 
-            if (recording == 1) {
-                if (instrument == "piano") {
-                    notes.push({
-                        "freq": frequency,
-                        "drum": "",
-                        "timeon": PutDownTime,
-                        "timeoff": PickUpTime
-                    })
-                }
 
-                if (instrument == "drums") {
-                    notes.push({
-                        "freq": "",
-                        "drum": drum,
-                        "timeon": PutDownTime,
-                        "timeoff": PickUpTime
-                    })
-                }
-                console.log(notes)
-            } else {}
+            audioElement = document.getElementById(key)
+            audioElement.currentTime = .65;
+            audioElement.volume = 1;
+            console.log(audioElement)
+            audioElement.play();
+            color = "red"
+            y = 107 - ((frequency - 261) / 4);
+        }
+
+        if (recording == 1) {
+
+            x = seconds * 5
+            var c = document.getElementById("canvas");
+            var ctx = c.getContext("2d");
+            ctx.beginPath();
+            ctx.rect(x, y, 2, 10);
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+
+
+    });
+    note.addEventListener('mouseup', function () {
+        PickUpTime = seconds;
+        PutDownTime = seconds;
+
+        if (recording == 1) {
+            if (instrument == "piano") {
+                notes.push({
+                    "freq": frequency,
+                    "drum": "",
+                    "timeon": PutDownTime,
+                    "timeoff": PickUpTime
+                })
+            }
+
+            if (instrument == "drums") {
+                notes.push({
+                    "freq": "",
+                    "drum": drum,
+                    "timeon": PutDownTime,
+                    "timeoff": PickUpTime
+                })
+            }
+            console.log(notes)
+        } else {}
 
 
 
-        })
+    })
 
-    
+
 }
 
 
 
 
 function metronome() {
-audioElement = document.getElementById("metronome")
-temp = 60000/tempo.value;
+    audioElement = document.getElementById("metronome")
+    temp = 60000 / tempo.value;
 
-metr = -metr
+    metr = -metr
 
-console.log(metr)
+    console.log(metr)
 
-if(metr == 1){
-ss = setInterval(playMet,temp)
-}
+    if (metr == 1) {
+        ss = setInterval(playMet, temp)
+    }
 
-if(metr == -1){
-clearInterval(ss)
-//audioElement.stop();
-}
+    if (metr == -1) {
+        clearInterval(ss)
+        //audioElement.stop();
+    }
 
 
-    function playMet(){
-    audioElement.play();
+    function playMet() {
+        audioElement.play();
     }
 }
 
 function recSong() {
-    metronome();
+
     var name = document.getElementById('input').value
     if (name == "") {
 
         alert('Please Enter a Song Title')
     } else {
-        
+
         seconds = 0;
         recording = -recording
         var start
@@ -326,7 +310,6 @@ function playSong() {
         alert('Please Enter a song title')
 
     } else {
-        metronome();
         var note
         var hold
         var request = new XMLHttpRequest();
@@ -339,22 +322,23 @@ function playSong() {
                     if (val.freq != "") {
                         var pianoTime = val.timeon * 1000
                         setTimeout(playPiano, pianoTime)
-                        var time = val.timeon*5
+                        var time = val.timeon * 5
+
                         function playPiano() {
                             //console.log(pianoTime)
                             var synth = new Tone.Synth().toMaster();
                             synth.triggerAttackRelease(val.freq, "8n");
                             var c = document.getElementById("canvas");
-                        var ctx = c.getContext("2d");
-                        ctx.beginPath();
-                        ctx.rect(time, 107-((val.freq-261)/4), 2, 10);
-                        ctx.fillStyle = "green";
-                        ctx.fill();
-                        //console.log("asdfasdf")
-                        //console.log(val.timeon)
+                            var ctx = c.getContext("2d");
+                            ctx.beginPath();
+                            ctx.rect(time, 107 - ((val.freq - 261) / 4), 2, 10);
+                            ctx.fillStyle = "green";
+                            ctx.fill();
+                            //console.log("asdfasdf")
+                            //console.log(val.timeon)
                         }
 
-                        
+
                     }
 
                     var drumTime = val.timeon * 1000
@@ -365,13 +349,13 @@ function playSong() {
                             audioElement = document.getElementById(val.drum + "Audio")
                             audioElement.play();
                             var c = document.getElementById("canvas");
-                        var ctx = c.getContext("2d");
-                        ctx.beginPath();
-                        ctx.rect(val.timeon*5, 120, 2, 10);
-                        ctx.fillStyle = "red";
-                        ctx.fill();
-                        //console.log("asdfasdf")
-                        console.log(val.timeon)
+                            var ctx = c.getContext("2d");
+                            ctx.beginPath();
+                            ctx.rect(val.timeon * 5, 120, 2, 10);
+                            ctx.fillStyle = "red";
+                            ctx.fill();
+                            //console.log("asdfasdf")
+                            console.log(val.timeon)
                         } else {}
 
                     }
