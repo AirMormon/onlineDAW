@@ -82,6 +82,6 @@ app.get('/respo', function (req, res) {
 
 
 
-http.listen(5000, function () {
-  console.log('listening on *:5000');
+app.listen(process.env.PORT || 5000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
