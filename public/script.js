@@ -1,5 +1,3 @@
-var socket = io.connect('http://localhost:5000');
-
 var recording = -1;
 var notes = []
 
@@ -35,6 +33,7 @@ var newSeconds = 0;
 var stream = MediaRecorder.stream
 var songNotes
 var color;
+var names = []
 
 var c = document.getElementById("canvas");
 var ctx = c.getContext("2d");
@@ -68,6 +67,41 @@ submit.addEventListener("click", subSong);
 delBut.addEventListener('click', delNotes)
 met.addEventListener('click', metronome)
 var input = document.getElementById('input')
+
+
+findPeople()
+
+
+
+function findPeople() {
+    var ul = document.getElementById("songs")
+    var request = new XMLHttpRequest();
+    request.open("GET", '/songs', true)
+    request.addEventListener('load', function () {
+        songs = JSON.parse(this.response);
+        songs.forEach(function (val) {
+            var title = val.title;
+            var node = document.createElement("LI");
+            var textnode = document.createTextNode(title);
+            node.appendChild(textnode);
+            ul.appendChild(node);
+
+
+            uniqueLi = {};
+
+            $("#songs li").each(function () {
+                var thisVal = $(this).text();
+                if (!(thisVal in uniqueLi)) {
+                    uniqueLi[thisVal] = "";
+                } else {
+                    $(this).remove();
+                }
+            })
+        })
+        // console.log(songs)
+    })
+    request.send();
+}
 
 
 
@@ -121,7 +155,7 @@ function playPiano(note, frequency, key, drum) {
             PutDownTime = seconds;
             y = 120;
 
-            audioElement = document.getElementById(drum + "Audio")
+            var audioElement = document.getElementById(drum + "Audio")
             audioElement.play();
             color = "blue"
         }
@@ -130,8 +164,8 @@ function playPiano(note, frequency, key, drum) {
             PutDownTime = seconds;
 
 
-            audioElement = document.getElementById(key)
-            audioElement.currentTime = .65;
+            var audioElement = document.getElementById(key)
+            audioElement.currentTime = .6;
             audioElement.volume = 1;
             console.log(audioElement)
             audioElement.play();
@@ -161,6 +195,8 @@ function playPiano(note, frequency, key, drum) {
                 notes.push({
                     "freq": frequency,
                     "drum": "",
+                    "realFreq": "",
+                    "real": "",
                     "timeon": PutDownTime,
                     "timeoff": PickUpTime
                 })
@@ -170,6 +206,19 @@ function playPiano(note, frequency, key, drum) {
                 notes.push({
                     "freq": "",
                     "drum": drum,
+                    "realFreq": "",
+                    "real": "",
+                    "timeon": PutDownTime,
+                    "timeoff": PickUpTime
+                })
+            }
+
+            if (instrument == "real") {
+                notes.push({
+                    "freq": "",
+                    "drum": "",
+                    "realFreq": frequency,
+                    "real": key,
                     "timeon": PutDownTime,
                     "timeoff": PickUpTime
                 })
@@ -188,7 +237,7 @@ function playPiano(note, frequency, key, drum) {
 
 
 function metronome() {
-    audioElement = document.getElementById("metronome")
+    var audioElement = document.getElementById("metronome")
     temp = 60000 / tempo.value;
 
     metr = -metr
@@ -217,11 +266,12 @@ function recSong() {
 
         alert('Please Enter a Song Title')
     } else {
-
+        metronome();
         seconds = 0;
         recording = -recording
         var start
         var elapsed
+
         if (recording == 1) {
             playSong();
             document.getElementById("recBanner").innerHTML = "Recording"
@@ -250,21 +300,19 @@ function recSong() {
         if (recording == -1) {
             clearInterval(time)
             clearInterval(int)
-            //document.getElementById("recBanner").innerHTML = ""
+            document.getElementById("recBanner").innerHTML = ""
             seconds = 0;
-            //console.log(elapsed)
         }
     }
 }
 
 function subSong() {
+    findPeople();
     var name = document.getElementById('input').value
     if (name == "") {
         alert('Please Enter a Song Title')
     } else {
-        recSong();
         var contents
-        document.getElementById("recBanner").innerHTML = ""
         var title = document.getElementById('input').value
         var xhttp = new XMLHttpRequest();
         if (instrument == "piano") {
@@ -274,6 +322,13 @@ function subSong() {
             }
         }
         if (instrument == "drums") {
+            contents = {
+                title,
+                notes
+            }
+        }
+
+        if (instrument == "real") {
             contents = {
                 title,
                 notes
@@ -289,14 +344,15 @@ function subSong() {
 
 function delNotes() {
     var name = document.getElementById('input').value
-
     if (name == "") {
         alert('Please Enter a song title')
 
     } else {
+        location.reload();
         var request = new XMLHttpRequest
         request.open("POST", "/del");
         request.send();
+       
     }
 }
 
@@ -346,15 +402,37 @@ function playSong() {
 
                     function playStuff() {
                         if (val.drum != "") {
-                            audioElement = document.getElementById(val.drum + "Audio")
+                            var audioElement = document.getElementById(val.drum + "Audio")
                             audioElement.play();
                             var c = document.getElementById("canvas");
                             var ctx = c.getContext("2d");
                             ctx.beginPath();
                             ctx.rect(val.timeon * 5, 120, 2, 10);
-                            ctx.fillStyle = "red";
+                            ctx.fillStyle = "blue";
                             ctx.fill();
                             //console.log("asdfasdf")
+                            console.log(val.timeon)
+                        } else {}
+
+                    }
+
+
+                    var realTime = val.timeon * 1000
+                    setTimeout(playReal, realTime)
+
+                    function playReal() {
+                        if (val.real != "") {
+                            var time = val.timeon * 5
+                            var audioElement = document.getElementById(val.real)
+                            audioElement.currentTime = 0.6;
+                            audioElement.play();
+                            var c = document.getElementById("canvas");
+                            var ctx = c.getContext("2d");
+                            ctx.beginPath();
+                            console.log(val.freq)
+                            ctx.rect(time, 107 - ((val.realFreq - 261) / 4), 2, 10);
+                            ctx.fillStyle = "red";
+                            ctx.fill();
                             console.log(val.timeon)
                         } else {}
 
@@ -373,7 +451,3 @@ function playSong() {
         request.send();
     }
 }
-
-// socket.on('chat message', function (msg) {
-//     console.log(msg)
-// })

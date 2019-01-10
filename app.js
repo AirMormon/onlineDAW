@@ -1,13 +1,12 @@
 const express = require('express');
 const app = express();
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
 
 var bodyParser = require('body-parser');
 
 var port = process.env.PORT || 5000;
-//const mongoURL = 'mongodb://localhost:27017/mytestdb'
-const mongoURL = 'mongodb://username:password1@ds151354.mlab.com:51354/onlinedaw'
+const mongoURL = 'mongodb://localhost:27017/mytestdb'
+//const mongoURL = 'mongodb://username:password1@ds151354.mlab.com:51354/onlinedaw'
 //const mongoURL = process.env.MONGOLAB_URI;
 const mongoClient = require('mongodb').MongoClient;
 var jsonParser = bodyParser.json();
@@ -42,6 +41,7 @@ app.post('/del', function (req, res) {
 
 app.post('/data', function (req, res) {
   data = req.body.notes
+  title = req.body.title
   db.collection('practice').insertOne(req.body);
 });
 
@@ -50,6 +50,18 @@ app.post('/name', function (req, res) {
   console.log(id)
 })
 
+
+app.get('/songs', function (req, res) {
+  db.collection('practice').find({}).toArray(function (err, result) {
+    if (err) {
+      console.log(err)
+    } else {
+      //console.log(result)
+      res.send(result)
+    }
+  })
+
+});
 
 app.get('/respo', function (req, res) {
   db.collection('practice').find({
@@ -65,23 +77,6 @@ app.get('/respo', function (req, res) {
 
 })
 
-
-// io.on('connection', function(socket){
-//   console.log('a user connected');
-//   socket.on('disconnect', function(){
-//     console.log('user disconnected');
-//   });
-
-
-// socket.on('message')
-//   socket.on('chat message', function(msg){
-//     console.log('message: ' + msg);
-//     io.emit('chat message', msg);
-//   });
-// });
-
-
-
-app.listen(process.env.PORT || 5000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+app.listen(process.env.PORT || 5000, function () {
+  console.log("going on port", this.address().port, app.settings.env);
 });
