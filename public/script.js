@@ -307,12 +307,12 @@ function recSong() {
 }
 
 function subSong() {
-    location.reload();
-
+   
     var name = document.getElementById('input').value
     if (name == "") {
         alert('Please Enter a Song Title')
     } else {
+        location.reload();
         var contents
         var title = document.getElementById('input').value
         var xhttp = new XMLHttpRequest();
