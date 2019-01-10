@@ -307,7 +307,8 @@ function recSong() {
 }
 
 function subSong() {
-    findPeople();
+    location.reload();
+
     var name = document.getElementById('input').value
     if (name == "") {
         alert('Please Enter a Song Title')
