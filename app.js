@@ -5,8 +5,8 @@ var http = require('http').Server(app);
 var bodyParser = require('body-parser');
 
 var port = process.env.PORT || 5000;
-const mongoURL = 'mongodb://localhost:27017/mytestdb'
-//const mongoURL = 'mongodb://username:password1@ds151354.mlab.com:51354/onlinedaw'
+//const mongoURL = 'mongodb://localhost:27017/mytestdb'
+const mongoURL = 'mongodb://username:password1@ds151354.mlab.com:51354/onlinedaw'
 //const mongoURL = process.env.MONGOLAB_URI;
 const mongoClient = require('mongodb').MongoClient;
 var jsonParser = bodyParser.json();
