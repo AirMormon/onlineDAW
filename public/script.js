@@ -266,7 +266,6 @@ function recSong() {
 
         alert('Please Enter a Song Title')
     } else {
-        metronome();
         seconds = 0;
         recording = -recording
         var start
